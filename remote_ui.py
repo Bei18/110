@@ -1,15 +1,15 @@
 import os
 import json
 import subprocess
-import tkinter as tk
-from tkinter import ttk, filedialog
 from pathlib import Path
+
+# 核心：直接精准导入具体组件类，不依赖 tk.xxx 的形式
+from tkinter import StringVar, Label, Frame, Canvas, Entry, Button, filedialog, ttk
 
 def build_ui(parent):
     APP_TITLE = "火麒麟多开"
     CONFIG_NAME = "launcher_config.json"
 
-    # 获取 AppData 本地配置路径
     def get_app_data_dir():
         appdata_dir = (
             Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local"))
@@ -22,11 +22,11 @@ def build_ui(parent):
     config_path = appdata_dir / CONFIG_NAME
     default_profile_root = appdata_dir / "profiles"
 
-    # 变量绑定
-    exe_var = tk.StringVar()
-    profile_dir_var = tk.StringVar(value=str(default_profile_root))
-    count_var = tk.StringVar(value="1")
-    status_var = tk.StringVar(value="")  # 无弹窗的文本状态栏
+    # 使用直接导入的 StringVar，绝对不会引发 '_tkinter.tkapp' 报错
+    exe_var = StringVar()
+    profile_dir_var = StringVar(value=str(default_profile_root))
+    count_var = StringVar(value="1")
+    status_var = StringVar(value="")
 
     rows = []
     apps_config = {}
@@ -36,7 +36,6 @@ def build_ui(parent):
     root.title(APP_TITLE)
 
     def set_status(msg, is_error=True):
-        """在本地窗口顶部显示状态信息（无弹窗）"""
         status_var.set(msg)
         if is_error:
             status_label.config(fg="#d9534f", bg="#f2dede")
@@ -183,7 +182,7 @@ def build_ui(parent):
             row.pack(fill="x", padx=1, pady=1)
 
             default_note = current_custom_notes.get(index, "")
-            note_var = tk.StringVar(value=default_note)
+            note_var = StringVar(value=default_note)
             note_var.trace_add("write", lambda *args: save_config())
 
             label_text = f"{exe_stem}{index}"
@@ -222,12 +221,10 @@ def build_ui(parent):
             profile_dir_var.set(path)
             save_config()
 
-    # 构建主界面布局
     main_frame = ttk.Frame(parent)
     main_frame.pack(fill="both", expand=True, padx=4, pady=4)
 
-    # 1. 顶栏错误/状态直接显示文本框（完全替代弹窗）
-    status_label = tk.Label(
+    status_label = Label(
         main_frame,
         textvariable=status_var,
         font=("Microsoft YaHei", 8),
@@ -237,7 +234,6 @@ def build_ui(parent):
     )
     status_label.pack(fill="x", pady=(0, 2))
 
-    # 2. 控制参数区域
     exe_frame = ttk.Frame(main_frame)
     exe_frame.pack(fill="x", pady=1)
     ttk.Label(exe_frame, text="程序").pack(side="left", padx=(0, 2))
@@ -261,7 +257,7 @@ def build_ui(parent):
     list_container = ttk.Frame(main_frame)
     list_container.pack(fill="both", expand=True, padx=0, pady=(2, 0))
 
-    canvas = tk.Canvas(list_container, highlightthickness=0)
+    canvas = Canvas(list_container, highlightthickness=0)
     scrollbar = ttk.Scrollbar(list_container, orient="vertical", command=canvas.yview)
     rows_frame = ttk.Frame(canvas)
 
@@ -274,7 +270,6 @@ def build_ui(parent):
     canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-    # 初始化加载配置
     load_config()
     if not exe_var.get() or not Path(exe_var.get()).exists():
         detected = auto_detect_exe()
