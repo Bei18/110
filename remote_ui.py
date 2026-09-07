@@ -3,12 +3,10 @@ import json
 import subprocess
 from pathlib import Path
 
-# 定义渲染 UI 的核心入口函数，本地 main.py 会通过 exec() 调用该函数并传入 container 容器
 def build_ui(parent):
-    # 从挂载作用域中提取 tk 和 messagebox 模块
+    # 从挂载作用域中提取 tk 和 ttk 模块
     tk = parent.tk if hasattr(parent, 'tk') else __import__('tkinter')
     ttk = __import__('tkinter.ttk', fromlist=['ttk'])
-    messagebox = __import__('tkinter.messagebox', fromlist=['messagebox'])
     filedialog = __import__('tkinter.filedialog', fromlist=['filedialog'])
 
     APP_TITLE = "火麒麟多开"
@@ -31,6 +29,7 @@ def build_ui(parent):
     exe_var = tk.StringVar()
     profile_dir_var = tk.StringVar(value=str(default_profile_root))
     count_var = tk.StringVar(value="1")
+    status_var = tk.StringVar(value="")  # 用于本地窗口无弹窗状态显示
 
     rows = []
     apps_config = {}
@@ -38,6 +37,17 @@ def build_ui(parent):
 
     root = parent.winfo_toplevel()
     root.title(APP_TITLE)
+
+    def set_status(msg, is_error=True):
+        """在本地窗口顶部显示错误/状态信息（无弹窗）"""
+        status_var.set(msg)
+        if is_error:
+            status_label.config(fg="#d9534f", bg="#f2dede")
+        else:
+            status_label.config(fg="#3c763d", bg="#dff0d8")
+
+    def clear_status():
+        status_var.set("")
 
     def load_config():
         nonlocal apps_config, current_custom_notes
@@ -54,8 +64,8 @@ def build_ui(parent):
             if last_exe and Path(last_exe).exists():
                 exe_var.set(last_exe)
                 load_app_spec_config(last_exe)
-        except Exception:
-            pass
+        except Exception as e:
+            set_status(f"加载配置失败: {e}")
 
     def load_app_spec_config(exe_path: str):
         nonlocal current_custom_notes
@@ -89,8 +99,8 @@ def build_ui(parent):
                 json.dumps(data, ensure_ascii=False, indent=2),
                 encoding="utf-8",
             )
-        except Exception:
-            pass
+        except Exception as e:
+            set_status(f"保存配置失败: {e}")
 
     def get_count():
         try:
@@ -119,17 +129,18 @@ def build_ui(parent):
         return ""
 
     def launch_one(index: int, note: str):
+        clear_status()
         exe_str = exe_var.get().strip().strip('"')
         exe = Path(exe_str)
         if not exe.is_file():
-            messagebox.showerror("无法启动", "请先选择正确的 EXE 程序。")
+            set_status("错误: 请先选择有效的 EXE 程序")
             return
 
         profile_root = Path(profile_dir_var.get().strip()) if profile_dir_var.get().strip() else default_profile_root
         try:
             profile_root.mkdir(parents=True, exist_ok=True)
         except Exception as exc:
-            messagebox.showerror("目录错误", f"无法创建存储目录：\n{exc}")
+            set_status(f"目录错误: {exc}")
             return
 
         exe_stem = get_exe_stem()
@@ -153,9 +164,10 @@ def build_ui(parent):
                 cmd = [str(exe), f"--user-data-dir={profile}", f"--class={profile_name}"]
                 subprocess.Popen(cmd, cwd=str(exe.parent))
 
+            set_status(f"启动成功: {profile_name}", is_error=False)
             save_config()
         except Exception as exc:
-            messagebox.showerror(f"启动失败：{profile_name}", str(exc))
+            set_status(f"启动失败: {exc}")
 
     def refresh_rows():
         nonlocal rows
@@ -193,10 +205,10 @@ def build_ui(parent):
 
             rows.append(note_var)
 
-        calc_height = 93 + (count * 33)
+        calc_height = 115 + (count * 33)
         screen_height = root.winfo_screenheight()
         max_height = min(calc_height, screen_height - 100)
-        root.geometry(f"220x{max_height}")
+        root.geometry(f"230x{max_height}")
         save_config()
 
     def choose_exe():
@@ -217,6 +229,18 @@ def build_ui(parent):
     main_frame = ttk.Frame(parent)
     main_frame.pack(fill="both", expand=True, padx=4, pady=4)
 
+    # 1. 顶栏错误/状态直接显示文本框（完全替代 messagebox 弹窗）
+    status_label = tk.Label(
+        main_frame,
+        textvariable=status_var,
+        font=("Microsoft YaHei", 8),
+        anchor="w",
+        wraplength=210,
+        justify="left"
+    )
+    status_label.pack(fill="x", pady=(0, 2))
+
+    # 2. 控制参数区域
     exe_frame = ttk.Frame(main_frame)
     exe_frame.pack(fill="x", pady=1)
     ttk.Label(exe_frame, text="程序").pack(side="left", padx=(0, 2))
