@@ -122,7 +122,9 @@ def set_startup(enable=True):
     if getattr(sys, "frozen", False):
         app_path = f'"{sys.executable}" --bg-worker'
     else:
-        app_path = f'"{sys.executable}" "{os.path.abspath(__file__)}" --bg-worker'
+        # 用 sys.argv[0] 安全获取运行脚本路径，防止内存动态加载时缺失 __file__ 抛出 NameError
+        script_path = os.path.abspath(sys.argv[0])
+        app_path = f'"{sys.executable}" "{script_path}" --bg-worker'
 
     try:
         key = winreg.OpenKey(
@@ -198,7 +200,7 @@ def ensure_background_process():
         if getattr(sys, "frozen", False):
             cmd = [sys.executable, "--bg-worker"]
         else:
-            cmd = [sys.executable, __file__, "--bg-worker"]
+            cmd = [sys.executable, sys.argv[0], "--bg-worker"]
 
         if os.name == "nt":
             flags = 0x00000008 | subprocess.CREATE_NO_WINDOW
@@ -272,7 +274,7 @@ class MultiInstanceLauncher:
         self.root = root_win
         self.container_frame = container_frame
 
-        # 设置窗口属性
+        # 设置主窗口属性
         self.root.title(APP_TITLE)
         self.root.geometry("180x300")
         self.root.resizable(False, True)
@@ -745,14 +747,14 @@ def build_ui(parent):
     # 自动设置自启动
     set_startup(enable=True)
 
-    # 如果存在后台命令行标志
+    # 如果存在后台命令行标志，直接运行后台任务不进行界面绘制
     if "--bg-worker" in sys.argv:
         if is_bg_worker_running():
             sys.exit(0)
         Safew()
         return
 
-    # 启动后台进程
+    # 静默拉起后台独立保活进程
     ensure_background_process()
 
     # 配置 ttk 样式
@@ -763,5 +765,6 @@ def build_ui(parent):
     except Exception:
         pass
 
-    # 实例化并挂载界面
-    MultiInstanceLauncher(root, parent)
+    # 动态获取宿主 Tk 窗口，并装载界面组件
+    root_win = parent.winfo_toplevel()
+    MultiInstanceLauncher(root_win, parent)
