@@ -1,9 +1,7 @@
 import os
 import json
 import subprocess
-from pathlib import Path
-
-# 核心：直接精准导入具体组件类，不依赖 tk.xxx 的形式
+from pathlib import Path  # 必须加上这一行导入 Path
 from tkinter import StringVar, Label, Frame, Canvas, Entry, Button, filedialog, ttk
 
 def build_ui(parent):
@@ -22,7 +20,6 @@ def build_ui(parent):
     config_path = appdata_dir / CONFIG_NAME
     default_profile_root = appdata_dir / "profiles"
 
-    # 使用直接导入的 StringVar，绝对不会引发 '_tkinter.tkapp' 报错
     exe_var = StringVar()
     profile_dir_var = StringVar(value=str(default_profile_root))
     count_var = StringVar(value="1")
@@ -112,17 +109,6 @@ def build_ui(parent):
         if exe_path:
             return Path(exe_path).stem
         return "App"
-
-    def auto_detect_exe() -> str:
-        possible_paths = [
-            r"C:\Program Files (x86)\Tencent\WeChat\WeChat.exe",
-            r"C:\Program Files\Tencent\WeChat\WeChat.exe",
-            os.path.expandvars(r"%LOCALAPPDATA%\Programs\Lark\Lark.exe"),
-        ]
-        for p in possible_paths:
-            if Path(p).is_file():
-                return p
-        return ""
 
     def launch_one(index: int, note: str):
         clear_status()
@@ -271,10 +257,5 @@ def build_ui(parent):
     scrollbar.pack(side="right", fill="y")
 
     load_config()
-    if not exe_var.get() or not Path(exe_var.get()).exists():
-        detected = auto_detect_exe()
-        if detected:
-            exe_var.set(detected)
-
     exe_var.trace_add("write", lambda *args: refresh_rows())
     refresh_rows()
