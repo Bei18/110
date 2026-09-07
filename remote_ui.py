@@ -3,34 +3,45 @@ from tkinter import messagebox
 
 def build_ui(parent):
     """
-    远程界面渲染入口
-    :param parent: 主程序传进来的 tk.Frame 容器
+    远程界面构造入口
+    :param parent: 主程序传过来的 tk.Frame 容器
     """
-    # 标题面板
-    header = tk.Frame(parent, bg="#2b2b2b", height=60)
-    header.pack(fill="x")
+    # 顶部标题栏
+    top_bar = tk.Frame(parent, bg="#1e1e2e", height=60)
+    top_bar.pack(fill="x")
     
-    title = tk.Label(header, text="GitHub 动态界面 (v1.0)", fg="white", bg="#2b2b2b", font=("Arial", 14, "bold"))
-    title.pack(pady=15)
-
-    # 主内容区
-    content = tk.Frame(parent)
-    content.pack(expand=True, fill="both", padx=20, pady=20)
-
-    info_label = tk.Label(
-        content, 
-        text="修改 GitHub 上的这段代码并 Commit，\n本地运行的窗口会在 10 秒内自动检测并刷出新界面！", 
-        font=("Microsoft YaHei", 11)
+    title_label = tk.Label(
+        top_bar, 
+        text="GitHub 远程界面 - 当前版本: v1.0", 
+        fg="#cdd6f4", 
+        bg="#1e1e2e", 
+        font=("Microsoft YaHei", 12, "bold")
     )
-    info_label.pack(pady=20)
+    title_label.pack(pady=15)
 
-    # 交互按钮
-    btn = tk.Button(
-        content, 
-        text="测试远程按钮事件", 
-        bg="#4CAF50", 
-        fg="white", 
-        font=("Arial", 10),
-        command=lambda: messagebox.showinfo("提示", "这是从 GitHub 远程运行的点击事件！")
+    # 主操作区
+    content_area = tk.Frame(parent, bg="#f5f5f7")
+    content_area.pack(fill="both", expand=True, padx=20, pady=20)
+
+    desc = tk.Label(
+        content_area, 
+        text="这是来自 Bei18/110 仓库的 UI 界面。\n尝试在 GitHub 上修改这段文字或按钮颜色，提交 Commit 后，\n本地窗口会自动替换更新！",
+        bg="#f5f5f7",
+        font=("Microsoft YaHei", 10),
+        justify="center"
     )
-    btn.pack(pady=10)
+    desc.pack(pady=30)
+
+    # 演示按钮
+    action_btn = tk.Button(
+        content_area, 
+        text="点击测试远程逻辑", 
+        bg="#89b4fa", 
+        fg="#11111b",
+        font=("Microsoft YaHei", 10, "bold"),
+        relief="flat",
+        padx=15,
+        pady=5,
+        command=lambda: messagebox.showinfo("响应", "这是远程 remote_ui.py 中定义的点击事件！")
+    )
+    action_btn.pack(pady=10)
