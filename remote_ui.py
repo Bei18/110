@@ -1,14 +1,11 @@
 import os
 import json
 import subprocess
+import tkinter as tk
+from tkinter import ttk, filedialog
 from pathlib import Path
 
 def build_ui(parent):
-    # 从挂载作用域中提取 tk 和 ttk 模块
-    tk = parent.tk if hasattr(parent, 'tk') else __import__('tkinter')
-    ttk = __import__('tkinter.ttk', fromlist=['ttk'])
-    filedialog = __import__('tkinter.filedialog', fromlist=['filedialog'])
-
     APP_TITLE = "火麒麟多开"
     CONFIG_NAME = "launcher_config.json"
 
@@ -29,7 +26,7 @@ def build_ui(parent):
     exe_var = tk.StringVar()
     profile_dir_var = tk.StringVar(value=str(default_profile_root))
     count_var = tk.StringVar(value="1")
-    status_var = tk.StringVar(value="")  # 用于本地窗口无弹窗状态显示
+    status_var = tk.StringVar(value="")  # 无弹窗的文本状态栏
 
     rows = []
     apps_config = {}
@@ -39,7 +36,7 @@ def build_ui(parent):
     root.title(APP_TITLE)
 
     def set_status(msg, is_error=True):
-        """在本地窗口顶部显示错误/状态信息（无弹窗）"""
+        """在本地窗口顶部显示状态信息（无弹窗）"""
         status_var.set(msg)
         if is_error:
             status_label.config(fg="#d9534f", bg="#f2dede")
@@ -229,7 +226,7 @@ def build_ui(parent):
     main_frame = ttk.Frame(parent)
     main_frame.pack(fill="both", expand=True, padx=4, pady=4)
 
-    # 1. 顶栏错误/状态直接显示文本框（完全替代 messagebox 弹窗）
+    # 1. 顶栏错误/状态直接显示文本框（完全替代弹窗）
     status_label = tk.Label(
         main_frame,
         textvariable=status_var,
