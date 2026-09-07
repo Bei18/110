@@ -1,53 +1,48 @@
 import tkinter as tk
 from tkinter import messagebox
 
-def build_ui():
+def build_ui(parent):
     # ----------------------------------------------------
-    # 1. 在这里全权控制【主窗口属性】
+    # 1. 云端全权控制主窗口 (大小、标题等)
     # ----------------------------------------------------
-    root.title("云端完全接管窗口 - v2.0")  # 修改窗口标题
-    root.geometry("650x500")               # 修改窗口大小 (长x宽)
-    root.resizable(True, True)             # 是否允许缩放 (宽, 高)
-    # root.attributes("-topmost", True)    # 取消注释可以让窗口置顶
+    root.title("云端完全控制 - v3.0")
+    root.geometry("600x450")  # 直接在这里改窗口大小
+    root.resizable(True, True)
 
     # ----------------------------------------------------
-    # 2. 在这里构建【界面内容与逻辑】
+    # 2. 绘制组件内容
     # ----------------------------------------------------
     # 顶部栏
-    top_bar = tk.Frame(parent, bg="#2d3748", height=70)
+    top_bar = tk.Frame(parent, bg="#1e1e2e", height=60)
     top_bar.pack(fill="x")
 
     title_label = tk.Label(
         top_bar, 
-        text="窗口尺寸/标题/组件全部由 GitHub 云端控制", 
+        text="纯内存热重载 + 全局窗口控制", 
         fg="#ffffff", 
-        bg="#2d3748", 
+        bg="#1e1e2e", 
         font=("Microsoft YaHei", 12, "bold")
     )
-    title_label.pack(pady=20)
+    title_label.pack(pady=15)
 
-    # 内容区
-    content = tk.Frame(parent, bg="#f7fafc")
-    content.pack(fill="both", expand=True, padx=25, pady=25)
+    # 内容容器
+    content = tk.Frame(parent)
+    content.pack(fill="both", expand=True, padx=20, pady=20)
 
     info_label = tk.Label(
         content, 
-        text="当你修改 GitHub 上的 root.geometry('800x600') 并 Commit 后，\n本地窗口大小会在 10 秒内自动调整，且本地不会产生任何垃圾文件！", 
-        bg="#f7fafc",
+        text="现在修改 GitHub 上的 root.geometry('800x500')，\n本地窗口会自动调整大小，且绝对不会在本地产生任何文件！", 
         font=("Microsoft YaHei", 10),
         justify="center"
     )
-    info_label.pack(pady=30)
+    info_label.pack(pady=20)
 
     btn = tk.Button(
         content, 
-        text="测试按钮", 
-        bg="#4299e1", 
+        text="测试点击", 
+        bg="#007acc", 
         fg="white", 
-        font=("Microsoft YaHei", 10, "bold"),
-        relief="flat",
-        padx=15, 
-        pady=8,
-        command=lambda: messagebox.showinfo("提示", "纯内存加载运行成功！")
+        font=("Microsoft YaHei", 10),
+        command=lambda: messagebox.showinfo("提示", "运行成功！")
     )
     btn.pack(pady=10)
